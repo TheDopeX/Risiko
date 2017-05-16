@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -15,6 +16,9 @@ import javafx.scene.shape.Rectangle;
 public class Eventhandler {
 
     private int stage;
+    private double xStart, yStart;
+    private double xDiverence,yDiverence;
+    private double xEnd, yEnd;
     private boolean setStart;
     private GraphicsContext graphicsContext;
     private Group group;
@@ -48,7 +52,6 @@ public class Eventhandler {
 
                     case 2:
                         if (event.getEventType() == MouseEvent.MOUSE_CLICKED && setStart == false) {
-                            System.out.println(graphicsContext);
                             graphicsContext.beginPath();
                             graphicsContext.moveTo(event.getX(), event.getY());
                             graphicsContext.stroke();
@@ -65,14 +68,103 @@ public class Eventhandler {
                         break;
 
                     case 3:
-                        if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
-                            Rectangle rect1 = new Rectangle(10, 10, 1000, 1000);
+                        if (event.getEventType() == MouseEvent.MOUSE_PRESSED ) {
+                            xStart = event.getX();
+                            yStart = event.getY();
+                            xEnd = xStart;
+                            yEnd = yStart;
+
+                            Rectangle rect1 = new Rectangle(xStart, yStart, 1, 1);
                             rect1.setFill(Color.BLUE);
                             group.getChildren().add(rect1);
+
+                        }
+                        else if (event.getEventType() == MouseEvent.MOUSE_RELEASED){
+
+                            if (event.getX()>xStart && event.getY()>yStart){
+                                xDiverence = event.getX() - xStart;
+                                yDiverence = event.getY() - yStart;
+                            }
+                            else if(event.getX()<xStart && event.getY()>yStart){
+                                xDiverence = -(event.getX() - xStart);
+                                yDiverence = event.getY() - yStart;
+                                xStart= event.getX();
+                            }
+                            else if(event.getX()>xStart && event.getY()<yStart) {
+                                xDiverence = event.getX() - xStart;
+                                yDiverence = -(event.getY() - yStart);
+                                yStart=event.getY();
+                            }
+                            else{
+                                xDiverence = -(event.getX() - xStart);
+                                yDiverence = -(event.getY() - yStart);
+                                xStart=event.getX();
+                                yStart=event.getY();
+                            }
+
+                            Rectangle rect1 = new Rectangle(xEnd, yEnd, xDiverence, yDiverence);
+                            rect1.setFill(Color.BLUE);
+                            group.getChildren().add(rect1);
+                        }
+                        else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED){
+                            group.getChildren().remove(group.getChildren().size()-1);
+                            if (event.getX()>=xStart && event.getY()>=yStart){
+                                xDiverence = event.getX() - xStart;
+                                yDiverence = event.getY() - yStart;
+                                xEnd = xStart;
+                                yEnd = yStart;
+                            }
+                            else if(event.getX()<xStart && event.getY()>=yStart){
+                                xDiverence = -(event.getX() - xStart);
+                                yDiverence = event.getY() - yStart;
+                                xEnd= event.getX();
+                            }
+                            else if(event.getX()>=xStart && event.getY()<yStart) {
+                                xDiverence = event.getX() - xStart;
+                                yDiverence = -(event.getY() - yStart);
+                                yEnd=event.getY();
+                            }
+                            else{
+                                xDiverence = -(event.getX() - xStart);
+                                yDiverence = -(event.getY() - yStart);
+                                xEnd=event.getX();
+                                yEnd=event.getY();
+                            }
+                            Rectangle rect1 = new Rectangle(xEnd, yEnd, xDiverence, yDiverence);
+                            rect1.setFill(Color.BLUE);
+                            group.getChildren().add(rect1);
+
                         }
                         break;
 
                     case 4:
+                        if (event.getEventType() == MouseEvent.MOUSE_PRESSED ) {
+                            xStart = event.getX();
+                            yStart = event.getY();
+
+                            Circle circle = new Circle(xStart, yStart, 2);
+                            circle.setFill(Color.BLUE);
+                            group.getChildren().add(circle);
+                        }
+                        else if (event.getEventType() == MouseEvent.MOUSE_RELEASED){
+
+                             double a =xStart - event.getX();
+                             double b = yStart - event.getY();
+                            xDiverence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+                            Circle circle = new Circle(xStart, yStart, xDiverence);
+                            circle.setFill(Color.BLUE);
+                            group.getChildren().add(circle);
+                        }
+                        else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+                            group.getChildren().remove(group.getChildren().size() - 1);
+                            double a =xStart - event.getX();
+                            double b = yStart - event.getY();
+                            xDiverence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+                            Circle circle = new Circle(xStart, yStart, xDiverence);
+                            circle.setFill(Color.BLUE);
+                            group.getChildren().add(circle);
+                        }
+
                         break;
 
                     case 5:
