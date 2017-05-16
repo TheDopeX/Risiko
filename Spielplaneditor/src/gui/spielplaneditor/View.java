@@ -48,17 +48,30 @@ public class View {
 
     Canvas canvas;
 
-    private int stage = 0;
-    private boolean setStart = false;
+    //Eventhandler eventHandler;
 
     public Scene create() {
         Group root = new Group();
-
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         Scene scene = new Scene(root, primaryScreenBounds.getWidth(), primaryScreenBounds.getHeight(), Color.WHITE);
+        BorderPane borderPane = new BorderPane();
+        StackPane holder = new StackPane();
 
+        holder.setStyle("-fx-background-color: white");
+
+        canvas = new Canvas(scene.getWidth(), scene.getHeight());
+        graphicsContext = canvas.getGraphicsContext2D();
+
+        Eventhandler eventHandler = new Eventhandler(graphicsContext);
+
+        borderPane.prefHeightProperty().bind(scene.heightProperty());
+        borderPane.prefWidthProperty().bind(scene.widthProperty());
+
+        /*
+         * MENUBAR
+         */
         menuBar = new MenuBar();
-        EventHandler<ActionEvent> action = changeTabPlacement();
+        EventHandler<ActionEvent> action = eventHandler.changeTabPlacement();
 
         Menu menu = new Menu("File");
         MenuItem left = new MenuItem("New");
@@ -81,14 +94,18 @@ public class View {
         menuBar.getMenus().add(menu);
         menuBar.setStyle("-fx-background-color: #C1C1C1;");
 
-        BorderPane borderPane = new BorderPane();
-
-        borderPane.prefHeightProperty().bind(scene.heightProperty());
-        borderPane.prefWidthProperty().bind(scene.widthProperty());
 
         infoLabel = new Label("Wait mouse");
         mainLabel = new Label("Menu\nPlaceholder");
         helpLabel = new Label("");
+
+        canvas.setOnMouseClicked(eventHandler.drawEvent());
+        canvas.setOnMouseDragged(eventHandler.drawEvent());
+        canvas.setOnMouseEntered(eventHandler.drawEvent());
+        canvas.setOnMouseExited(eventHandler.drawEvent());
+        canvas.setOnMouseMoved(eventHandler.drawEvent());
+        canvas.setOnMousePressed(eventHandler.drawEvent());
+        canvas.setOnMouseReleased(eventHandler.drawEvent());
 
 		/*
          * Button definition
@@ -101,15 +118,15 @@ public class View {
         buttonRedo = new Button("↻"); // REDO
 
         buttonMouse.setOnAction(e -> {
-            stage = 0;
+            eventHandler.updateStage(0);
             helpLabel.setText("");
         });
         buttonPen.setOnAction(e -> {
-            stage = 1;
+            eventHandler.updateStage(1);
             helpLabel.setText("Press LEFT-CLICK to draw");
         });
         buttonLine.setOnAction(e -> {
-            stage = 2;
+            eventHandler.updateStage(2);
             helpLabel.setText("Press LEFT-CLICK to place a startpoint");
         });
 
@@ -143,19 +160,6 @@ public class View {
         toolBar_Bottom.setStyle("-fx-background-color: #C1C1C1;");
 
         borderPane.setTop(menuBar);
-        StackPane holder = new StackPane();
-
-        holder.setStyle("-fx-background-color: white");
-        canvas = new Canvas(scene.getWidth(), scene.getHeight());
-        graphicsContext = canvas.getGraphicsContext2D();
-
-        canvas.setOnMouseClicked(drawEvent());
-        canvas.setOnMouseDragged(drawEvent());
-        canvas.setOnMouseEntered(drawEvent());
-        canvas.setOnMouseExited(drawEvent());
-        canvas.setOnMouseMoved(drawEvent());
-        canvas.setOnMousePressed(drawEvent());
-        canvas.setOnMouseReleased(drawEvent());
 
         holder.getChildren().add(canvas);
         borderPane.setCenter(holder);
@@ -173,74 +177,6 @@ public class View {
         canvas.setHeight(scene.getHeight() - (menuBar.getHeight() + toolBar_Bottom.getHeight()));
         canvas.setWidth(scene.getWidth() - (toolBar_Left.getWidth() + toolBar_Right.getWidth()));
         initDraw(graphicsContext);
-    }
-
-    private EventHandler<MouseEvent> drawEvent() {
-        return new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent event) {
-                switch (stage) {
-                    case 0:
-                        break;
-
-                    case 1:
-                        if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
-                            graphicsContext.beginPath();
-                            graphicsContext.moveTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                        } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-                            graphicsContext.lineTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                        } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
-
-                        }
-                        break;
-
-                    case 2:
-                        if (event.getEventType() == MouseEvent.MOUSE_CLICKED && setStart == false) {
-                            System.out.println(graphicsContext);
-                            graphicsContext.beginPath();
-                            graphicsContext.moveTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                            setStart = true;
-                        } else if (event.getEventType() == MouseEvent.MOUSE_CLICKED && setStart == true) {
-                            graphicsContext.lineTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                            setStart = true;
-                        } else if (event.getEventType() == MouseEvent.MOUSE_MOVED && setStart == true) {
-                            //graphicsContext.clearRect(x, y, w, h);
-                            //graphicsContext.lineTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                        }
-                        break;
-
-                    default:
-                        break;
-                }
-
-            }
-
-        };
-    }
-
-    private EventHandler<ActionEvent> changeTabPlacement() {
-        return new EventHandler<ActionEvent>() {
-
-            public void handle(ActionEvent event) {
-                MenuItem mItem = (MenuItem) event.getSource();
-                String side = mItem.getText();
-                if ("new".equalsIgnoreCase(side)) {
-                    System.out.println("New");
-                } else if ("open".equalsIgnoreCase(side)) {
-                    System.out.println("Open");
-                } else if ("---".equalsIgnoreCase(side)) {
-                    System.out.println("-----");
-                } else if ("exit".equalsIgnoreCase(side)) {
-                    System.exit(0);
-                }
-            }
-        };
     }
 
     private void initDraw(GraphicsContext gc) {
