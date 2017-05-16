@@ -57,7 +57,7 @@ public class View {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         Scene scene = new Scene(root, primaryScreenBounds.getWidth(), primaryScreenBounds.getHeight(), Color.WHITE);
         BorderPane borderPane = new BorderPane();
-        StackPane holder = new StackPane();
+        Group holder = new Group();
 
         holder.setStyle("-fx-background-color: white");
 
@@ -131,6 +131,10 @@ public class View {
         });
         buttonLine.setOnAction(e -> {
             eventHandler.updateStage(2);
+            helpLabel.setText("Press LEFT-CLICK to place a startpoint");
+        });
+        buttonRec.setOnAction(e -> {
+            eventHandler.updateStage(3);
             helpLabel.setText("Press LEFT-CLICK to place a startpoint");
         });
 

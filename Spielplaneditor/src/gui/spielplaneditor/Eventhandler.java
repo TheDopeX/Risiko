@@ -68,6 +68,7 @@ public class Eventhandler {
                         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
                             Rectangle rect1 = new Rectangle(10, 10, 1000, 1000);
                             rect1.setFill(Color.BLUE);
+                            group.getChildren().add(rect1);
                         }
                         break;
 
