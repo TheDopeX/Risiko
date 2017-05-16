@@ -64,7 +64,7 @@ public class View {
         canvas = new Canvas(scene.getWidth(), scene.getHeight());
         graphicsContext = canvas.getGraphicsContext2D();
 
-        Eventhandler eventHandler = new Eventhandler(graphicsContext);
+        Eventhandler eventHandler = new Eventhandler(graphicsContext, holder);
 
         borderPane.prefHeightProperty().bind(scene.heightProperty());
         borderPane.prefWidthProperty().bind(scene.widthProperty());
