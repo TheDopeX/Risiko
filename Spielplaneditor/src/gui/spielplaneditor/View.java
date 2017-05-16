@@ -1,7 +1,6 @@
-/*
- * @author Kevin Gerspacher
- * @date 15.05.2017
- * @version 1.0
+/**
+ * Created by Kevin Gerspacher on 16.05.17.
+ * Version 0.1
  */
 
 package gui.spielplaneditor;
@@ -26,8 +25,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class View extends Application {
+public class View {
 
+    /*
+     * GraphicContext for adding graphics to canvas
+     */
     GraphicsContext graphicsContext;
     /*
      * Labels
@@ -47,22 +49,21 @@ public class View extends Application {
     ToolBar toolBar_Left = new ToolBar();
     ToolBar toolBar_Right = new ToolBar(); // Not included yet!
     ToolBar toolBar_Bottom = new ToolBar();
+
+    MenuBar menuBar;
+
+    Canvas canvas;
+
     private int stage = 0;
     private boolean setStart = false;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Title");
+    public Scene create() {
         Group root = new Group();
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         Scene scene = new Scene(root, primaryScreenBounds.getWidth(), primaryScreenBounds.getHeight(), Color.WHITE);
 
-        MenuBar menuBar = new MenuBar();
+        menuBar = new MenuBar();
         EventHandler<ActionEvent> action = changeTabPlacement();
 
         Menu menu = new Menu("File");
@@ -151,7 +152,7 @@ public class View extends Application {
         StackPane holder = new StackPane();
 
         holder.setStyle("-fx-background-color: white");
-        Canvas canvas = new Canvas(scene.getWidth(), scene.getHeight());
+        canvas = new Canvas(scene.getWidth(), scene.getHeight());
         graphicsContext = canvas.getGraphicsContext2D();
 
         canvas.setOnMouseClicked(drawEvent());
@@ -170,9 +171,11 @@ public class View extends Application {
 
         root.getChildren().add(borderPane);
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        return scene;
+    }
 
+    public void update(Scene scene)
+    {
         canvas.setHeight(scene.getHeight() - (menuBar.getHeight() + toolBar_Bottom.getHeight()));
         canvas.setWidth(scene.getWidth() - (toolBar_Left.getWidth() + toolBar_Right.getWidth()));
         initDraw(graphicsContext);
