@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -58,10 +57,14 @@ public class View {
         Scene scene = new Scene(root, primaryScreenBounds.getWidth(), primaryScreenBounds.getHeight(), Color.WHITE);
         BorderPane borderPane = new BorderPane();
         Group holder = new Group();
+        holder.maxHeight(scene.getHeight());
+        holder.maxWidth(scene.getWidth());
 
         holder.setStyle("-fx-background-color: white");
 
         canvas = new Canvas(scene.getWidth(), scene.getHeight());
+        canvas.maxHeight(scene.getHeight());
+        canvas.maxWidth(scene.getWidth());
         graphicsContext = canvas.getGraphicsContext2D();
 
         Eventhandler eventHandler = new Eventhandler(graphicsContext, holder);
@@ -155,7 +158,7 @@ public class View {
                 buttonCircle, bottSpacer, buttonReset);
         toolBar_Left.setStyle("-fx-background-color: #C1C1C1;");
         /*
-		 * Right toolbar
+         * Right toolbar
 		 */
         toolBar_Right.setOrientation(Orientation.VERTICAL);
         toolBar_Right.getItems().addAll(infoLabel, new Separator());
@@ -180,8 +183,7 @@ public class View {
         return scene;
     }
 
-    public void update(Scene scene)
-    {
+    public void update(Scene scene) {
         canvas.setHeight(scene.getHeight() - (menuBar.getHeight() + toolBar_Bottom.getHeight()));
         canvas.setWidth(scene.getWidth() - (toolBar_Left.getWidth() + toolBar_Right.getWidth()));
         initDraw(graphicsContext);

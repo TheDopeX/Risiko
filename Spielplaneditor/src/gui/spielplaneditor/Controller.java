@@ -9,15 +9,14 @@ import javafx.stage.Stage;
  * Version 0.1
  */
 
-public class Controller extends Application{
+public class Controller extends Application {
 
     /*
      * Controller creates View object,
      * updates and creates the UI
      */
     @Override
-    public void start(Stage primaryStage)
-    {
+    public void start(Stage primaryStage) {
         primaryStage.setTitle("Spielplaneditor");
 
         View view = new View();
