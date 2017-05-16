@@ -1,15 +1,5 @@
-/**
- * Created by Kevin Gerspacher on 16.05.17.
- * Version 0.1
- */
-
 package gui.spielplaneditor;
 
-/*
- * Imports
- */
-
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -23,7 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
-import javafx.stage.Stage;
+
+/**
+ * Created by Kevin Gerspacher on 16.05.17.
+ * Version 0.1
+ */
 
 public class View {
 

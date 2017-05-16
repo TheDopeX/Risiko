@@ -4,12 +4,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.util.concurrent.ThreadPoolExecutor;
-
 /**
  * Created by Kevin Gerspacher on 16.05.17.
  * Version 0.1
  */
+
 public class Controller extends Application{
 
     /*
