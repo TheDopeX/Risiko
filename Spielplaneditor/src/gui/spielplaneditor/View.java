@@ -119,8 +119,8 @@ public class View {
         buttonMouse = new Button("☝"); // MOUSE
         buttonPen = new Button("✎"); // PENCIL
         buttonLine = new Button("╲"); // LINE
-        buttonRec = new Button("▭"); //Rectangle
-        buttonCircle = new Button("○"); //Circle
+        buttonRec = new Button("▢"); //Rectangle
+        buttonCircle = new Button("◯"); //Circle
         buttonUndo = new Button("↺"); // UNDO
         buttonRedo = new Button("↻"); // REDO
 
@@ -138,6 +138,10 @@ public class View {
         });
         buttonRec.setOnAction(e -> {
             eventHandler.updateStage(3);
+            helpLabel.setText("Press LEFT-CLICK to place a startpoint");
+        });
+        buttonCircle.setOnAction(e -> {
+            eventHandler.updateStage(4);
             helpLabel.setText("Press LEFT-CLICK to place a startpoint");
         });
 
