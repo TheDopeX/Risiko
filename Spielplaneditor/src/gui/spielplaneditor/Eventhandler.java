@@ -2,9 +2,12 @@ package gui.spielplaneditor;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Created by Kevin Gerspacher on 16.05.17.
@@ -14,10 +17,11 @@ public class Eventhandler {
     private int stage;
     private boolean setStart;
     private GraphicsContext graphicsContext;
+    private Group group;
 
-    public Eventhandler(GraphicsContext graphicsContext)
-    {
+    public Eventhandler(GraphicsContext graphicsContext, Group group) {
         this.graphicsContext = graphicsContext;
+        this.group = group;
     }
 
     public EventHandler<MouseEvent> drawEvent() {
@@ -60,6 +64,19 @@ public class Eventhandler {
                         }
                         break;
 
+                    case 3:
+                        if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+                            Rectangle rect1 = new Rectangle(10, 10, 1000, 1000);
+                            rect1.setFill(Color.BLUE);
+                        }
+                        break;
+
+                    case 4:
+                        break;
+
+                    case 5:
+                        break;
+
                     default:
                         break;
                 }
@@ -88,8 +105,7 @@ public class Eventhandler {
         };
     }
 
-    public void updateStage(int stage)
-    {
+    public void updateStage(int stage) {
         this.stage = stage;
     }
 }
