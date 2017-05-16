@@ -37,6 +37,8 @@ public class View {
     Button buttonMouse;
     Button buttonPen;
     Button buttonLine;
+    Button buttonRec;
+    Button buttonCircle;
     Button buttonReset;
     Button buttonUndo;
     Button buttonRedo;
@@ -114,6 +116,8 @@ public class View {
         buttonMouse = new Button("☝"); // MOUSE
         buttonPen = new Button("✎"); // PENCIL
         buttonLine = new Button("╲"); // LINE
+        buttonRec = new Button("▭"); //Rectangle
+        buttonCircle = new Button("○"); //Circle
         buttonUndo = new Button("↺"); // UNDO
         buttonRedo = new Button("↻"); // REDO
 
@@ -143,8 +147,8 @@ public class View {
          * Left toolbar
 		 */
         toolBar_Left.setOrientation(Orientation.VERTICAL);
-        toolBar_Left.getItems().addAll(buttonMouse, new Separator(), buttonPen, new Separator(), buttonLine, bottSpacer,
-                buttonReset);
+        toolBar_Left.getItems().addAll(buttonMouse, new Separator(), buttonPen, new Separator(), buttonLine, buttonRec,
+                buttonCircle, bottSpacer, buttonReset);
         toolBar_Left.setStyle("-fx-background-color: #C1C1C1;");
         /*
 		 * Right toolbar
@@ -199,3 +203,5 @@ public class View {
 
     }
 }
+
+
