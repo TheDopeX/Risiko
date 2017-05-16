@@ -63,8 +63,7 @@ public class View {
         holder.setStyle("-fx-background-color: white");
 
         canvas = new Canvas(scene.getWidth(), scene.getHeight());
-        canvas.maxHeight(scene.getHeight());
-        canvas.maxWidth(scene.getWidth());
+
         graphicsContext = canvas.getGraphicsContext2D();
 
         Eventhandler eventHandler = new Eventhandler(graphicsContext, holder);
@@ -100,7 +99,7 @@ public class View {
         menuBar.setStyle("-fx-background-color: #C1C1C1;");
 
 
-        infoLabel = new Label("Wait mouse");
+        infoLabel = new Label("Pick a draw tool from the list.");
         mainLabel = new Label("Menu\nPlaceholder");
         helpLabel = new Label("");
 
@@ -119,7 +118,7 @@ public class View {
         buttonMouse = new Button("☝"); // MOUSE
         buttonPen = new Button("✎"); // PENCIL
         buttonLine = new Button("╲"); // LINE
-        buttonRec = new Button("▢"); //Rectangle
+        buttonRec = new Button("◻"); //Rectangle
         buttonCircle = new Button("◯"); //Circle
         buttonUndo = new Button("↺"); // UNDO
         buttonRedo = new Button("↻"); // REDO
@@ -169,7 +168,7 @@ public class View {
         toolBar_Right.setStyle("-fx-background-color: #C1C1C1;");
 
 		/*
-		 * Bottom toolbar
+         * Bottom toolbar
 		 */
         toolBar_Bottom.getItems().addAll(buttonUndo, buttonRedo, rightSpacer, helpLabel);
         toolBar_Bottom.setStyle("-fx-background-color: #C1C1C1;");
@@ -190,6 +189,9 @@ public class View {
     public void update(Scene scene) {
         canvas.setHeight(scene.getHeight() - (menuBar.getHeight() + toolBar_Bottom.getHeight()));
         canvas.setWidth(scene.getWidth() - (toolBar_Left.getWidth() + toolBar_Right.getWidth()));
+        canvas.maxHeight(scene.getHeight() - (menuBar.getHeight() + toolBar_Bottom.getHeight()));
+        canvas.maxWidth(scene.getWidth() - (menuBar.getWidth() + toolBar_Bottom.getWidth()));
+
         initDraw(graphicsContext);
     }
 
