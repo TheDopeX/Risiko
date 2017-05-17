@@ -49,6 +49,10 @@ public class View {
 
     Canvas canvas;
 
+    CommandController cc = new CommandController();
+
+    Pane holder;
+
     //Eventhandler eventHandler;
 
     public Scene create() {
@@ -56,9 +60,7 @@ public class View {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         Scene scene = new Scene(root, primaryScreenBounds.getWidth(), primaryScreenBounds.getHeight(), Color.WHITE);
         BorderPane borderPane = new BorderPane();
-        Group holder = new Group();
-        holder.maxHeight(scene.getHeight());
-        holder.maxWidth(scene.getWidth());
+        holder = new Pane();
 
         holder.setStyle("-fx-background-color: white");
 
@@ -144,6 +146,9 @@ public class View {
             helpLabel.setText("Press LEFT-CLICK to place a startpoint");
         });
 
+        buttonUndo.setOnAction(e -> updateHolder(cc.undo(holder)));
+        buttonRedo.setOnAction(e -> updateHolder(cc.redo(holder)));
+
 		/*
          * Panes as spacers for toolbars
 		 */
@@ -191,7 +196,8 @@ public class View {
         canvas.setWidth(scene.getWidth() - (toolBar_Left.getWidth() + toolBar_Right.getWidth()));
         canvas.maxHeight(scene.getHeight() - (menuBar.getHeight() + toolBar_Bottom.getHeight()));
         canvas.maxWidth(scene.getWidth() - (menuBar.getWidth() + toolBar_Bottom.getWidth()));
-
+        holder.maxHeight(scene.getHeight() - (menuBar.getHeight() + toolBar_Bottom.getHeight()));
+        holder.maxWidth(scene.getWidth() - (menuBar.getWidth() + toolBar_Bottom.getWidth()));
         initDraw(graphicsContext);
     }
 
@@ -212,7 +218,13 @@ public class View {
         gc.setFill(Color.RED);
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
+    }
 
+    public void updateHolder(Pane holderNew)
+    {
+        System.out.println(holder.getChildren().size());
+        this.holder = holderNew;
+        System.out.println(holder.getChildren().size());
     }
 }
 
