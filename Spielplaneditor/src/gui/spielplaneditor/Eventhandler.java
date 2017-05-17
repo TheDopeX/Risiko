@@ -7,8 +7,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -22,9 +24,9 @@ public class Eventhandler {
     private double xEnd, yEnd;
     private boolean setStart;
     private GraphicsContext graphicsContext;
-    private Group group;
+    private Pane group;
 
-    public Eventhandler(GraphicsContext graphicsContext, Group group) {
+    public Eventhandler(GraphicsContext graphicsContext, Pane group) {
         this.graphicsContext = graphicsContext;
         this.group = group;
     }
@@ -78,6 +80,8 @@ public class Eventhandler {
                             yEnd = yStart;
 
                             Rectangle rect1 = new Rectangle(xStart, yStart, 1, 1);
+                            rect1.setStroke(Color.RED);
+                            rect1.setStrokeWidth(5.0);
                             rect1.setFill(Color.BLUE); // übergabe von colorpicker
                             group.getChildren().add(rect1);
 
@@ -107,6 +111,8 @@ public class Eventhandler {
                                 yEnd=event.getY();
                             }
                             Rectangle rect1 = new Rectangle(xEnd, yEnd, xDiverence, yDiverence);
+                            rect1.setStroke(Color.RED);
+                            rect1.setStrokeWidth(5.0);
                             rect1.setFill(Color.BLUE);//übergabe von colorpicker
                             group.getChildren().add(rect1);
 
@@ -119,6 +125,8 @@ public class Eventhandler {
                             yStart = event.getY();
 
                             Circle circle = new Circle(xStart, yStart, 2);
+                            circle.setStroke(Color.RED);
+                            circle.setStrokeWidth(5);
                             circle.setFill(Color.BLUE);// übergabe von colorpicker
                             group.getChildren().add(circle);
                         }
@@ -128,6 +136,9 @@ public class Eventhandler {
                             double b = yStart - event.getY();
                             xDiverence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
                             Circle circle = new Circle(xStart, yStart, xDiverence);
+                            circle.setStroke(Color.RED);
+                            circle.setStrokeWidth(5);
+                            circle.setFill(Color.BLUE);// übergabe von colorpicker
                             circle.setFill(Color.BLUE);// übergabe von colorpicker
                             group.getChildren().add(circle);
                         }
@@ -135,6 +146,37 @@ public class Eventhandler {
                         break;
 
                     case 5:
+                        if (event.getEventType() == MouseEvent.MOUSE_PRESSED ) {
+                            xStart = event.getX();
+                            yStart = event.getY();
+                            Polyline hexagon = new Polyline(xStart, yStart,
+                                    xStart+20, yStart,
+                                    xStart+25, yStart+15,
+                                    xStart+20, yStart+30,
+                                    xStart, yStart+30,
+                                    xStart-5, yStart+15,
+                                    xStart, yStart);
+                            hexagon.setFill(Color.RED);
+                            hexagon.setStroke(Color.BLACK);
+                            group.getChildren().add(hexagon);
+                        }
+                        else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+                            group.getChildren().remove(group.getChildren().size() - 1);
+                            xDiverence = event.getX() - xStart;
+                            yDiverence = event.getY() - yStart;
+                            Polyline hexagon = new Polyline(xStart, yStart,
+                                    xStart+xDiverence, yStart,
+                                    xStart+xDiverence*1.25, yStart+yDiverence/2,
+                                    xStart+xDiverence, yStart+yDiverence,
+                                    xStart, yStart+yDiverence,
+                                    xStart-xDiverence*0.25, yStart+yDiverence/2,
+                                    xStart, yStart);
+                            hexagon.setFill(Color.RED);
+                            hexagon.setStroke(Color.BLACK);
+                            hexagon.setStrokeWidth(5.0);
+                            group.getChildren().add(hexagon);
+
+                        }
                         break;
 
                     default:
