@@ -38,6 +38,7 @@ public class View {
     Button buttonLine;
     Button buttonRec;
     Button buttonCircle;
+    Button buttonHex;
     Button buttonReset;
     Button buttonUndo;
     Button buttonRedo;
@@ -122,6 +123,7 @@ public class View {
         buttonLine = new Button("╲"); // LINE
         buttonRec = new Button("◻"); //Rectangle
         buttonCircle = new Button("◯"); //Circle
+        buttonHex = new Button("⬡"); //HEXAGON
         buttonUndo = new Button("↺"); // UNDO
         buttonRedo = new Button("↻"); // REDO
 
@@ -145,6 +147,10 @@ public class View {
             eventHandler.updateStage(4);
             helpLabel.setText("Press LEFT-CLICK to place a startpoint");
         });
+        buttonHex.setOnAction(e -> {
+            eventHandler.updateStage(5);
+            helpLabel.setText("Press LEFT-CLICK to place a startpoint");
+        });
 
         buttonUndo.setOnAction(e -> updateHolder(cc.undo(holder)));
         buttonRedo.setOnAction(e -> updateHolder(cc.redo(holder)));
@@ -163,7 +169,7 @@ public class View {
 		 */
         toolBar_Left.setOrientation(Orientation.VERTICAL);
         toolBar_Left.getItems().addAll(buttonMouse, new Separator(), buttonPen, new Separator(), buttonLine, buttonRec,
-                buttonCircle, bottSpacer, buttonReset);
+                buttonCircle, buttonHex, bottSpacer, buttonReset);
         toolBar_Left.setStyle("-fx-background-color: #C1C1C1;");
         /*
          * Right toolbar
