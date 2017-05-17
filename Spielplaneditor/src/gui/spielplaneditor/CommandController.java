@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Kevin Gerspacher on 17.05.17.
+ * Created by Kevin Gerspacher und David Bartberger on 17.05.17.
  */
 public class CommandController{
 

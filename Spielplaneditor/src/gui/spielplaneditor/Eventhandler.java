@@ -12,7 +12,7 @@ import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Created by Kevin Gerspacher on 16.05.17.
+ * Created by Kevin Gerspacher und David Bartberger on 16.05.17.
  */
 public class Eventhandler {
 

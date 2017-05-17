@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
 /**
- * Created by Kevin Gerspacher on 16.05.17.
+ * Created by Kevin Gerspacher und David Bartberger on 16.05.17.
  * Version 0.1
  */
 
