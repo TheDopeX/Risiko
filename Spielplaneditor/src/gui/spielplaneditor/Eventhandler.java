@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -55,6 +56,7 @@ public class Eventhandler {
                             graphicsContext.beginPath();
                             graphicsContext.moveTo(event.getX(), event.getY());
                             graphicsContext.stroke();
+                            graphicsContext.setLineWidth(2);// hier wird die Liniendicke ersetzt mit View verbinden
                             setStart = true;
                         } else if (event.getEventType() == MouseEvent.MOUSE_CLICKED && setStart == true) {
                             graphicsContext.lineTo(event.getX(), event.getY());
@@ -75,36 +77,10 @@ public class Eventhandler {
                             yEnd = yStart;
 
                             Rectangle rect1 = new Rectangle(xStart, yStart, 1, 1);
-                            rect1.setFill(Color.BLUE);
+
+                            rect1.setFill(Color.BLUE); // übergabe von colorpicker
                             group.getChildren().add(rect1);
 
-                        }
-                        else if (event.getEventType() == MouseEvent.MOUSE_RELEASED){
-
-                            if (event.getX()>xStart && event.getY()>yStart){
-                                xDiverence = event.getX() - xStart;
-                                yDiverence = event.getY() - yStart;
-                            }
-                            else if(event.getX()<xStart && event.getY()>yStart){
-                                xDiverence = -(event.getX() - xStart);
-                                yDiverence = event.getY() - yStart;
-                                xStart= event.getX();
-                            }
-                            else if(event.getX()>xStart && event.getY()<yStart) {
-                                xDiverence = event.getX() - xStart;
-                                yDiverence = -(event.getY() - yStart);
-                                yStart=event.getY();
-                            }
-                            else{
-                                xDiverence = -(event.getX() - xStart);
-                                yDiverence = -(event.getY() - yStart);
-                                xStart=event.getX();
-                                yStart=event.getY();
-                            }
-
-                            Rectangle rect1 = new Rectangle(xEnd, yEnd, xDiverence, yDiverence);
-                            rect1.setFill(Color.BLUE);
-                            group.getChildren().add(rect1);
                         }
                         else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED){
                             group.getChildren().remove(group.getChildren().size()-1);
@@ -131,7 +107,7 @@ public class Eventhandler {
                                 yEnd=event.getY();
                             }
                             Rectangle rect1 = new Rectangle(xEnd, yEnd, xDiverence, yDiverence);
-                            rect1.setFill(Color.BLUE);
+                            rect1.setFill(Color.BLUE);//übergabe von colorpicker
                             group.getChildren().add(rect1);
 
                         }
@@ -143,16 +119,7 @@ public class Eventhandler {
                             yStart = event.getY();
 
                             Circle circle = new Circle(xStart, yStart, 2);
-                            circle.setFill(Color.BLUE);
-                            group.getChildren().add(circle);
-                        }
-                        else if (event.getEventType() == MouseEvent.MOUSE_RELEASED){
-
-                             double a =xStart - event.getX();
-                             double b = yStart - event.getY();
-                            xDiverence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
-                            Circle circle = new Circle(xStart, yStart, xDiverence);
-                            circle.setFill(Color.BLUE);
+                            circle.setFill(Color.BLUE);// übergabe von colorpicker
                             group.getChildren().add(circle);
                         }
                         else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
@@ -161,7 +128,7 @@ public class Eventhandler {
                             double b = yStart - event.getY();
                             xDiverence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
                             Circle circle = new Circle(xStart, yStart, xDiverence);
-                            circle.setFill(Color.BLUE);
+                            circle.setFill(Color.BLUE);// übergabe von colorpicker
                             group.getChildren().add(circle);
                         }
 
