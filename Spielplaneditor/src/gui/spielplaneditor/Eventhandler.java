@@ -43,6 +43,7 @@ public class Eventhandler {
                             graphicsContext.beginPath();
                             graphicsContext.moveTo(event.getX(), event.getY());
                             graphicsContext.stroke();
+                            graphicsContext.setLineWidth(3.0);
                         } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
                             graphicsContext.lineTo(event.getX(), event.getY());
                             graphicsContext.stroke();
@@ -77,7 +78,6 @@ public class Eventhandler {
                             yEnd = yStart;
 
                             Rectangle rect1 = new Rectangle(xStart, yStart, 1, 1);
-
                             rect1.setFill(Color.BLUE); // übergabe von colorpicker
                             group.getChildren().add(rect1);
 
