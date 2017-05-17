@@ -1,6 +1,5 @@
 package gui.spielplaneditor;
 
-import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
