@@ -2,7 +2,6 @@ package gui.spielplaneditor;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -12,16 +11,9 @@ import javafx.scene.layout.Pane;
  */
 public class Eventhandler {
 
-    private int stage;
-    private double xStart, yStart;
-    private double xDiverence,yDiverence;
-    private double xEnd, yEnd;
-    private boolean setStart;
-    private GraphicsContext graphicsContext;
     private Pane group;
 
-    public Eventhandler(GraphicsContext graphicsContext, Pane group) {
-        this.graphicsContext = graphicsContext;
+    public Eventhandler(Pane group) {
         this.group = group;
     }
 
@@ -91,7 +83,4 @@ public class Eventhandler {
         };
     }
 
-    public void updateStage(int stage) {
-        this.stage = stage;
-    }
 }
