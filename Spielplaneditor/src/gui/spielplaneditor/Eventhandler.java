@@ -6,10 +6,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polyline;
-import javafx.scene.shape.Rectangle;
 
 /**
  * Created by Kevin Gerspacher und David Bartberger on 16.05.17.
@@ -29,158 +25,21 @@ public class Eventhandler {
         this.group = group;
     }
 
+    public Toolstate state;
+
+    private ShapeDrawState shapeState = new ShapeDrawState();
+
     public EventHandler<MouseEvent> drawEvent() {
         return new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent event) {
-                switch (stage) {
-                    case 0:
-                        break;
-
-                    case 1:
-                        if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
-                            graphicsContext.beginPath();
-                            graphicsContext.moveTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                            graphicsContext.setLineWidth(3.0);
-                        } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-                            graphicsContext.lineTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                        } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
-
-                        }
-                        break;
-
-                    case 2:
-                        if (event.getEventType() == MouseEvent.MOUSE_CLICKED && setStart == false) {
-                            graphicsContext.beginPath();
-                            graphicsContext.moveTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                            graphicsContext.setLineWidth(2);// hier wird die Liniendicke ersetzt mit View verbinden
-                            setStart = true;
-                        } else if (event.getEventType() == MouseEvent.MOUSE_CLICKED && setStart == true) {
-                            graphicsContext.lineTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                            setStart = true;
-                        } else if (event.getEventType() == MouseEvent.MOUSE_MOVED && setStart == true) {
-                            //graphicsContext.clearRect(x, y, w, h);
-                            //graphicsContext.lineTo(event.getX(), event.getY());
-                            graphicsContext.stroke();
-                        }
-                        break;
-
-                    case 3:
-                        if (event.getEventType() == MouseEvent.MOUSE_PRESSED ) {
-                            xStart = event.getX();
-                            yStart = event.getY();
-                            xEnd = xStart;
-                            yEnd = yStart;
-
-                            Rectangle rect1 = new Rectangle(xStart, yStart, 1, 1);
-                            rect1.setStroke(Color.RED);
-                            rect1.setStrokeWidth(5.0);
-                            rect1.setFill(Color.BLUE); // übergabe von colorpicker
-                            group.getChildren().add(rect1);
-
-                        }
-                        else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED){
-                            group.getChildren().remove(group.getChildren().size()-1);
-                            if (event.getX()>=xStart && event.getY()>=yStart){
-                                xDiverence = event.getX() - xStart;
-                                yDiverence = event.getY() - yStart;
-                                xEnd = xStart;
-                                yEnd = yStart;
-                            }
-                            else if(event.getX()<xStart && event.getY()>=yStart){
-                                xDiverence = -(event.getX() - xStart);
-                                yDiverence = event.getY() - yStart;
-                                xEnd= event.getX();
-                            }
-                            else if(event.getX()>=xStart && event.getY()<yStart) {
-                                xDiverence = event.getX() - xStart;
-                                yDiverence = -(event.getY() - yStart);
-                                yEnd=event.getY();
-                            }
-                            else{
-                                xDiverence = -(event.getX() - xStart);
-                                yDiverence = -(event.getY() - yStart);
-                                xEnd=event.getX();
-                                yEnd=event.getY();
-                            }
-                            Rectangle rect1 = new Rectangle(xEnd, yEnd, xDiverence, yDiverence);
-                            rect1.setStroke(Color.RED);
-                            rect1.setStrokeWidth(5.0);
-                            rect1.setFill(Color.BLUE);//übergabe von colorpicker
-                            group.getChildren().add(rect1);
-
-                        }
-                        break;
-
-                    case 4:
-                        if (event.getEventType() == MouseEvent.MOUSE_PRESSED ) {
-                            xStart = event.getX();
-                            yStart = event.getY();
-
-                            Circle circle = new Circle(xStart, yStart, 2);
-                            circle.setStroke(Color.RED);
-                            circle.setStrokeWidth(5);
-                            circle.setFill(Color.BLUE);// übergabe von colorpicker
-                            group.getChildren().add(circle);
-                        }
-                        else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-                            group.getChildren().remove(group.getChildren().size() - 1);
-                            double a =xStart - event.getX();
-                            double b = yStart - event.getY();
-                            xDiverence = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
-                            Circle circle = new Circle(xStart, yStart, xDiverence);
-                            circle.setStroke(Color.RED);
-                            circle.setStrokeWidth(5);
-                            circle.setFill(Color.BLUE);// übergabe von colorpicker
-                            circle.setFill(Color.BLUE);// übergabe von colorpicker
-                            group.getChildren().add(circle);
-                        }
-
-                        break;
-
-                    case 5:
-                        if (event.getEventType() == MouseEvent.MOUSE_PRESSED ) {
-                            xStart = event.getX();
-                            yStart = event.getY();
-                            Polyline hexagon = new Polyline(xStart, yStart,
-                                    xStart+20, yStart,
-                                    xStart+25, yStart+15,
-                                    xStart+20, yStart+30,
-                                    xStart, yStart+30,
-                                    xStart-5, yStart+15,
-                                    xStart, yStart);
-                            hexagon.setFill(Color.RED);
-                            hexagon.setStroke(Color.BLACK);
-                            group.getChildren().add(hexagon);
-                        }
-                        else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-                            group.getChildren().remove(group.getChildren().size() - 1);
-                            xDiverence = event.getX() - xStart;
-                            yDiverence = event.getY() - yStart;
-                            Polyline hexagon = new Polyline(xStart, yStart,
-                                    xStart+xDiverence, yStart,
-                                    xStart+xDiverence*1.25, yStart+yDiverence/2,
-                                    xStart+xDiverence, yStart+yDiverence,
-                                    xStart, yStart+yDiverence,
-                                    xStart-xDiverence*0.25, yStart+yDiverence/2,
-                                    xStart, yStart);
-                            hexagon.setFill(Color.RED);
-                            hexagon.setStroke(Color.BLACK);
-                            hexagon.setStrokeWidth(5.0);
-                            group.getChildren().add(hexagon);
-
-                        }
-                        break;
-
-                    default:
-                        break;
+                if (event.getEventType() == MouseEvent.MOUSE_PRESSED ) {
+                    state.onLeftClick(event);
                 }
-
+                else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED){
+                    state.onLeftDown(event);
+                }
             }
 
         };
@@ -200,6 +59,33 @@ public class Eventhandler {
                     System.out.println("-----");
                 } else if ("exit".equalsIgnoreCase(side)) {
                     System.exit(0);
+                }
+            }
+        };
+    }
+
+    public EventHandler<ActionEvent> changeState()
+    {
+        return new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                MenuItem mItem = (MenuItem) event.getSource();
+                String side = mItem.getText();
+
+                if ("◻".equalsIgnoreCase(side)) {
+                    state = shapeState;
+                    shapeState.setShape("Rectangle");
+                    state.setPane(group);
+
+                } else if ("◯".equalsIgnoreCase(side)) {
+                    state = shapeState;
+                    shapeState.setShape("Circle");
+                    state.setPane(group);
+
+                } else if ("⬡".equalsIgnoreCase(side)) {
+                    state = shapeState;
+                    shapeState.setShape("Hexagon");
+                    state.setPane(group);
                 }
             }
         };
