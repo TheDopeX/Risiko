@@ -26,10 +26,10 @@ public class Eventhandler {
 
             @Override
             public void handle(MouseEvent event) {
-                if (event.getEventType() == MouseEvent.MOUSE_PRESSED ) {
+                if (event.getEventType() == MouseEvent.MOUSE_PRESSED && state != null) {
                     state.onLeftClick(event);
                 }
-                else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED){
+                else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED && state != null){
                     state.onLeftDown(event);
                 }
             }
