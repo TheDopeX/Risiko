@@ -34,17 +34,23 @@ public class View {
      * Buttons
      */
     Button buttonMouse;
-    Button buttonPen;
-    Button buttonLine;
-    Button buttonRec;
-    Button buttonCircle;
-    Button buttonHex;
+    Button buttonText;
+    Button buttonAutoBorder;
+    Button buttonSelectShape;
+    Button buttonBackground;
     Button buttonReset;
     Button buttonUndo;
     Button buttonRedo;
+
     ToolBar toolBar_Left = new ToolBar();
     ToolBar toolBar_Right = new ToolBar(); // Not included yet!
     ToolBar toolBar_Bottom = new ToolBar();
+
+    ColorPicker colorPickerFill = new ColorPicker();
+    ColorPicker colorPickerBorder = new ColorPicker();
+    MenuButton menuButton = new MenuButton("Formen");
+
+
 
     MenuBar menuBar;
 
@@ -69,7 +75,7 @@ public class View {
 
         graphicsContext = canvas.getGraphicsContext2D();
 
-        Eventhandler eventHandler = new Eventhandler(graphicsContext, holder);
+        Eventhandler eventHandler = new Eventhandler(holder);
 
         borderPane.prefHeightProperty().bind(scene.heightProperty());
         borderPane.prefWidthProperty().bind(scene.widthProperty());
@@ -119,38 +125,31 @@ public class View {
 		 */
         buttonReset = new Button("✗"); // RESET
         buttonMouse = new Button("☝"); // MOUSE
-        buttonPen = new Button("✎"); // PENCIL
-        buttonLine = new Button("╲"); // LINE
-        buttonRec = new Button("◻"); //Rectangle
-        buttonCircle = new Button("◯"); //Circle
-        buttonHex = new Button("⬡"); //HEXAGON
+        buttonText = new Button( "T"); //Text
+        buttonAutoBorder = new Button( "AutoBorder"); //AutoBorder
+        buttonSelectShape = new Button( "SelectShape"); //SelectShape
+        buttonBackground = new Button("Background"); //Bachground Hinzufügen
         buttonUndo = new Button("↺"); // UNDO
         buttonRedo = new Button("↻"); // REDO
 
-        buttonMouse.setOnAction(e -> {
-            eventHandler.updateStage(0);
-            helpLabel.setText("");
-        });
-        buttonPen.setOnAction(e -> {
-            eventHandler.updateStage(1);
-            helpLabel.setText("Press LEFT-CLICK to draw");
-        });
-        buttonLine.setOnAction(e -> {
-            eventHandler.updateStage(2);
-            helpLabel.setText("Press LEFT-CLICK to place a startpoint");
-        });
-        buttonRec.setOnAction(e -> {
-            eventHandler.updateStage(3);
-            helpLabel.setText("Press LEFT-CLICK to place a startpoint");
-        });
-        buttonCircle.setOnAction(e -> {
-            eventHandler.updateStage(4);
-            helpLabel.setText("Press LEFT-CLICK to place a startpoint");
-        });
-        buttonHex.setOnAction(e -> {
-            eventHandler.updateStage(5);
-            helpLabel.setText("Press LEFT-CLICK to place a startpoint");
-        });
+
+        EventHandler<ActionEvent> state = eventHandler.changeState();
+
+        MenuItem line = new MenuItem("╲");
+        line.setOnAction(state);
+        menuButton.getItems().add(line);
+
+        MenuItem rectangle = new MenuItem("◻");
+        rectangle.setOnAction(state);
+        menuButton.getItems().add(rectangle);
+
+        MenuItem circle = new MenuItem("◯");
+        circle.setOnAction(state);
+        menuButton.getItems().add(circle);
+
+        MenuItem hex = new MenuItem("⬡");
+        hex.setOnAction(state);
+        menuButton.getItems().add(hex);
 
         buttonUndo.setOnAction(e -> updateHolder(cc.undo(holder)));
         buttonRedo.setOnAction(e -> updateHolder(cc.redo(holder)));
@@ -168,14 +167,14 @@ public class View {
          * Left toolbar
 		 */
         toolBar_Left.setOrientation(Orientation.VERTICAL);
-        toolBar_Left.getItems().addAll(buttonMouse, new Separator(), buttonPen, new Separator(), buttonLine, buttonRec,
-                buttonCircle, buttonHex, bottSpacer, buttonReset);
+        toolBar_Left.getItems().addAll(buttonMouse, new Separator(), menuButton, new Separator(), buttonText, new Separator(),
+                buttonBackground, new Separator(), buttonSelectShape,new Separator(), buttonAutoBorder, bottSpacer, buttonReset);
         toolBar_Left.setStyle("-fx-background-color: #C1C1C1;");
         /*
          * Right toolbar
 		 */
         toolBar_Right.setOrientation(Orientation.VERTICAL);
-        toolBar_Right.getItems().addAll(infoLabel, new Separator());
+        toolBar_Right.getItems().addAll(colorPickerFill, new Separator(), colorPickerBorder, infoLabel, new Separator());
         toolBar_Right.setStyle("-fx-background-color: #C1C1C1;");
 
 		/*
@@ -191,6 +190,7 @@ public class View {
         borderPane.setLeft(toolBar_Left);
         borderPane.setBottom(toolBar_Bottom);
         borderPane.setRight(toolBar_Right);
+
 
         root.getChildren().add(borderPane);
 
