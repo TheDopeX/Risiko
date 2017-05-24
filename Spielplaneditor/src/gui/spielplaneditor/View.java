@@ -50,7 +50,10 @@ public class View {
     ColorPicker colorPickerBorder = new ColorPicker();
     MenuButton menuButton = new MenuButton("Formen");
 
-
+    TabPane tabPane = new TabPane();
+    Tab tab = new Tab();
+    Tab tab2 = new Tab();
+    Tab tab3 = new Tab();
 
     MenuBar menuBar;
 
@@ -154,6 +157,19 @@ public class View {
         buttonUndo.setOnAction(e -> updateHolder(cc.undo(holder)));
         buttonRedo.setOnAction(e -> updateHolder(cc.redo(holder)));
 
+
+        tabPane.setTabMaxWidth(100);
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        tab.setText("Shape Einstellungen");
+        tabPane.getTabs().add(tab);
+
+        tab2.setText("Ebenen");
+        tabPane.getTabs().add(tab2);
+
+        tab3.setText("Karten Einstellungen");
+        tabPane.getTabs().add(tab3);
+
 		/*
          * Panes as spacers for toolbars
 		 */
@@ -174,7 +190,7 @@ public class View {
          * Right toolbar
 		 */
         toolBar_Right.setOrientation(Orientation.VERTICAL);
-        toolBar_Right.getItems().addAll(colorPickerFill, new Separator(), colorPickerBorder, infoLabel, new Separator());
+        toolBar_Right.getItems().addAll(tabPane);
         toolBar_Right.setStyle("-fx-background-color: #C1C1C1;");
 
 		/*
@@ -228,9 +244,7 @@ public class View {
 
     public void updateHolder(Pane holderNew)
     {
-        System.out.println(holder.getChildren().size());
         this.holder = holderNew;
-        System.out.println(holder.getChildren().size());
     }
 }
 
