@@ -3,6 +3,7 @@ package gui.spielplaneditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -42,18 +43,45 @@ public class View {
     Button buttonUndo;
     Button buttonRedo;
 
+    Button buttonAddContinent;
+    /*
+     * ToolBars
+     */
     ToolBar toolBar_Left = new ToolBar();
     ToolBar toolBar_Right = new ToolBar(); // Not included yet!
     ToolBar toolBar_Bottom = new ToolBar();
 
+    ToolBar toolBar_Shape = new ToolBar();
+    /*
+     * ColorPicker
+     */
     ColorPicker colorPickerFill = new ColorPicker();
     ColorPicker colorPickerBorder = new ColorPicker();
-    MenuButton menuButton = new MenuButton("Formen");
-
+    /*
+     * MenuButtons
+     */
+    MenuButton menuShapeForm = new MenuButton("Formen");
+    MenuButton menuContinents = new MenuButton("Kontinent 1");
+    MenuButton menuBorderWith = new MenuButton("1.5 px");
+    /*
+     * Tabs
+     */
     TabPane tabPane = new TabPane();
-    Tab tab = new Tab();
-    Tab tab2 = new Tab();
-    Tab tab3 = new Tab();
+    Tab tabShape = new Tab();
+    Tab tabLevel = new Tab();
+    Tab tabMap = new Tab();
+    /*
+     * CheckBoxes
+     */
+    CheckBox checkCountry = new CheckBox();
+    CheckBox checkoverwrite = new CheckBox();
+    /*
+     * TextImput
+     */
+    TextField textPositionX = new TextField();
+    TextField textPositionY = new TextField();
+    TextField textShapeWith = new TextField();
+    TextField textShapeHaight = new TextField();
 
     MenuBar menuBar;
 
@@ -136,23 +164,53 @@ public class View {
         buttonRedo = new Button("↻"); // REDO
 
 
+        colorPickerFill.setMinHeight(25);
+        colorPickerBorder.setMinHeight(25);
+
+
+        buttonAddContinent = new Button("+"); // Add Continent Button
+
+        textPositionX.setMaxWidth(25);
+        textPositionX.setMaxHeight(25);
+        textPositionX.setMinWidth(25);
+        textPositionX.setMinHeight(25);
+        textPositionX.setAlignment(Pos.CENTER);
+
+        textPositionY.setMaxWidth(25);
+        textPositionY.setMaxHeight(25);
+        textPositionY.setMinWidth(25);
+        textPositionY.setMinHeight(25);
+        textPositionY.setAlignment(Pos.CENTER);
+
+        textShapeWith.setMaxWidth(25);
+        textShapeWith.setMaxHeight(25);
+        textShapeWith.setMinWidth(25);
+        textShapeWith.setMinHeight(25);
+        textShapeWith.setAlignment(Pos.CENTER);
+
+        textShapeHaight.setMaxWidth(25);
+        textShapeHaight.setMaxHeight(25);
+        textShapeHaight.setMinWidth(25);
+        textShapeHaight.setMinHeight(25);
+        textShapeHaight.setAlignment(Pos.CENTER);
+
         EventHandler<ActionEvent> state = eventHandler.changeState();
 
         MenuItem line = new MenuItem("╲");
         line.setOnAction(state);
-        menuButton.getItems().add(line);
+        menuShapeForm.getItems().add(line);
 
         MenuItem rectangle = new MenuItem("◻");
         rectangle.setOnAction(state);
-        menuButton.getItems().add(rectangle);
+        menuShapeForm.getItems().add(rectangle);
 
         MenuItem circle = new MenuItem("◯");
         circle.setOnAction(state);
-        menuButton.getItems().add(circle);
+        menuShapeForm.getItems().add(circle);
 
         MenuItem hex = new MenuItem("⬡");
         hex.setOnAction(state);
-        menuButton.getItems().add(hex);
+        menuShapeForm.getItems().add(hex);
 
         buttonUndo.setOnAction(e -> updateHolder(cc.undo(holder)));
         buttonRedo.setOnAction(e -> updateHolder(cc.redo(holder)));
@@ -161,14 +219,16 @@ public class View {
         tabPane.setTabMaxWidth(100);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        tab.setText("Shape Einstellungen");
-        tabPane.getTabs().add(tab);
+        tabShape.setText("Shape Einstellungen");
 
-        tab2.setText("Ebenen");
-        tabPane.getTabs().add(tab2);
+        tabShape.setContent(toolBar_Shape);
+        tabPane.getTabs().add(tabShape);
 
-        tab3.setText("Karten Einstellungen");
-        tabPane.getTabs().add(tab3);
+        tabLevel.setText("Ebenen");
+        tabPane.getTabs().add(tabLevel);
+
+        tabMap.setText("Karten Einstellungen");
+        tabPane.getTabs().add(tabMap);
 
 		/*
          * Panes as spacers for toolbars
@@ -183,7 +243,7 @@ public class View {
          * Left toolbar
 		 */
         toolBar_Left.setOrientation(Orientation.VERTICAL);
-        toolBar_Left.getItems().addAll(buttonMouse, new Separator(), menuButton, new Separator(), buttonText, new Separator(),
+        toolBar_Left.getItems().addAll(buttonMouse, new Separator(), menuShapeForm, new Separator(), buttonText, new Separator(),
                 buttonBackground, new Separator(), buttonSelectShape,new Separator(), buttonAutoBorder, bottSpacer, buttonReset);
         toolBar_Left.setStyle("-fx-background-color: #C1C1C1;");
         /*
@@ -199,6 +259,16 @@ public class View {
         toolBar_Bottom.getItems().addAll(buttonUndo, buttonRedo, rightSpacer, helpLabel);
         toolBar_Bottom.setStyle("-fx-background-color: #C1C1C1;");
 
+        /*
+         * Shape toolbar
+         */
+        toolBar_Shape.setOrientation(Orientation.VERTICAL);
+        toolBar_Shape.getItems().addAll(checkCountry,new Separator(), menuContinents, buttonAddContinent,new Separator(),
+                checkoverwrite,new Separator(), menuBorderWith, colorPickerBorder, colorPickerFill, new Separator(),
+                textPositionX, textPositionY, textShapeWith, textShapeHaight, new Separator());
+        toolBar_Shape.setStyle("-fx-background-color: #C1C1C1;");
+
+
         borderPane.setTop(menuBar);
 
         holder.getChildren().add(canvas);
@@ -206,7 +276,6 @@ public class View {
         borderPane.setLeft(toolBar_Left);
         borderPane.setBottom(toolBar_Bottom);
         borderPane.setRight(toolBar_Right);
-
 
         root.getChildren().add(borderPane);
 
