@@ -73,8 +73,8 @@ public class View {
     /*
      * CheckBoxes
      */
-    CheckBox checkCountry = new CheckBox();
-    CheckBox checkoverwrite = new CheckBox();
+    CheckBox checkCountry = new CheckBox("Land");
+    CheckBox checkoverwrite = new CheckBox("überschreiben");
     /*
      * TextImput
      */
@@ -163,13 +163,15 @@ public class View {
         buttonUndo = new Button("↺"); // UNDO
         buttonRedo = new Button("↻"); // REDO
 
-
+        buttonAddContinent = new Button("+"); // Add Continent Button
+        /*
+         * CollorPicker definition
+		 */
         colorPickerFill.setMinHeight(25);
         colorPickerBorder.setMinHeight(25);
-
-
-        buttonAddContinent = new Button("+"); // Add Continent Button
-
+        /*
+         * Position input
+		 */
         textPositionX.setMaxWidth(25);
         textPositionX.setMaxHeight(25);
         textPositionX.setMinWidth(25);
@@ -181,7 +183,9 @@ public class View {
         textPositionY.setMinWidth(25);
         textPositionY.setMinHeight(25);
         textPositionY.setAlignment(Pos.CENTER);
-
+        /*
+         * Shape Hith and Haight input
+		 */
         textShapeWith.setMaxWidth(25);
         textShapeWith.setMaxHeight(25);
         textShapeWith.setMinWidth(25);
@@ -193,7 +197,9 @@ public class View {
         textShapeHaight.setMinWidth(25);
         textShapeHaight.setMinHeight(25);
         textShapeHaight.setAlignment(Pos.CENTER);
-
+        /*
+         * Shape Forms dropdownbutton input
+		 */
         EventHandler<ActionEvent> state = eventHandler.changeState();
 
         MenuItem line = new MenuItem("╲");
@@ -211,16 +217,20 @@ public class View {
         MenuItem hex = new MenuItem("⬡");
         hex.setOnAction(state);
         menuShapeForm.getItems().add(hex);
-
+        /*
+         * undo / redo button action
+		 */
         buttonUndo.setOnAction(e -> updateHolder(cc.undo(holder)));
         buttonRedo.setOnAction(e -> updateHolder(cc.redo(holder)));
-
-
+        /*
+         * Creat TapPane
+		 */
         tabPane.setTabMaxWidth(100);
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
+        /*
+         * Creat Tabs
+		 */
         tabShape.setText("Shape Einstellungen");
-
         tabShape.setContent(toolBar_Shape);
         tabPane.getTabs().add(tabShape);
 
