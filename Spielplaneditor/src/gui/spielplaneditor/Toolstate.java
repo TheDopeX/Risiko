@@ -1,16 +1,15 @@
 package gui.spielplaneditor;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 
 /**
- * Created by Kevin Gerspacher on 23.05.17.
+ * @author Kevin Gerspacher
+ * @version 0.2
  */
 public interface Toolstate
 {
-
     public void setPane(Pane pane);
     public void onLeftClick(MouseEvent event);
     public void onRightClick(MouseEvent event);

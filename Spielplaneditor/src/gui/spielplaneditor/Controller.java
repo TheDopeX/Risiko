@@ -5,8 +5,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Created by Kevin Gerspacher und David Bartberger on 16.05.17.
- * Version 0.1
+ * @author Kevin Gerspacher
+ * @version 0.2
  */
 
 public class Controller extends Application {

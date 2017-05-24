@@ -1,5 +1,7 @@
 package gui.spielplaneditor;
 
+import gui.spielplaneditor.Shapes.Hexagon;
+import gui.spielplaneditor.Shapes.Rectangle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.MenuItem;
@@ -7,7 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 /**
- * Created by Kevin Gerspacher und David Bartberger on 16.05.17.
+ * @author Kevin Gerspacher, David Bartberger
+ * @version 0.2
  */
 public class Eventhandler {
 
@@ -20,6 +23,8 @@ public class Eventhandler {
     public Toolstate state;
 
     private ShapeDrawState shapeState = new ShapeDrawState();
+    private Rectangle rect;
+    private Hexagon hex;
 
     public EventHandler<MouseEvent> drawEvent() {
         return new EventHandler<MouseEvent>() {
@@ -27,6 +32,7 @@ public class Eventhandler {
             @Override
             public void handle(MouseEvent event) {
                 if (event.getEventType() == MouseEvent.MOUSE_PRESSED && state != null) {
+                    state.setPane(group);
                     state.onLeftClick(event);
                 }
                 else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED && state != null){
@@ -65,19 +71,19 @@ public class Eventhandler {
                 String side = mItem.getText();
 
                 if ("◻".equalsIgnoreCase(side)) {
+                    rect = new Rectangle();
                     state = shapeState;
-                    shapeState.setShape("Rectangle");
-                    state.setPane(group);
+                    shapeState.setShape(rect);
 
                 } else if ("◯".equalsIgnoreCase(side)) {
-                    state = shapeState;
-                    shapeState.setShape("Circle");
-                    state.setPane(group);
+                    /*state = shapeState;
+                    shapeState.setShape(null);
+                    state.setPane(group);*/
 
                 } else if ("⬡".equalsIgnoreCase(side)) {
+                    hex = new Hexagon();
                     state = shapeState;
-                    shapeState.setShape("Hexagon");
-                    state.setPane(group);
+                    shapeState.setShape(hex);
                 }
             }
         };
