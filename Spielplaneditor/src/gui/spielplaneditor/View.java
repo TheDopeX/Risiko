@@ -156,9 +156,9 @@ public class View {
 		 */
         buttonReset = new Button("✗"); // RESET
         buttonMouse = new Button("☝"); // MOUSE
-        buttonText = new Button( "T"); //Text
-        buttonAutoBorder = new Button( "AutoBorder"); //AutoBorder
-        buttonSelectShape = new Button( "SelectShape"); //SelectShape
+        buttonText = new Button("T"); //Text
+        buttonAutoBorder = new Button("AutoBorder"); //AutoBorder
+        buttonSelectShape = new Button("SelectShape"); //SelectShape
         buttonBackground = new Button("Background"); //Bachground Hinzufügen
         buttonUndo = new Button("↺"); // UNDO
         buttonRedo = new Button("↻"); // REDO
@@ -254,7 +254,7 @@ public class View {
 		 */
         toolBar_Left.setOrientation(Orientation.VERTICAL);
         toolBar_Left.getItems().addAll(buttonMouse, new Separator(), menuShapeForm, new Separator(), buttonText, new Separator(),
-                buttonBackground, new Separator(), buttonSelectShape,new Separator(), buttonAutoBorder, bottSpacer, buttonReset);
+                buttonBackground, new Separator(), buttonSelectShape, new Separator(), buttonAutoBorder, bottSpacer, buttonReset);
         toolBar_Left.setStyle("-fx-background-color: #C1C1C1;");
         /*
          * Right toolbar
@@ -273,8 +273,8 @@ public class View {
          * Shape toolbar
          */
         toolBar_Shape.setOrientation(Orientation.VERTICAL);
-        toolBar_Shape.getItems().addAll(checkCountry,new Separator(), menuContinents, buttonAddContinent,new Separator(),
-                checkoverwrite,new Separator(), menuBorderWith, colorPickerBorder, colorPickerFill, new Separator(),
+        toolBar_Shape.getItems().addAll(checkCountry, new Separator(), menuContinents, buttonAddContinent, new Separator(),
+                checkoverwrite, new Separator(), menuBorderWith, colorPickerBorder, colorPickerFill, new Separator(),
                 textPositionX, textPositionY, textShapeWith, textShapeHaight, new Separator());
         toolBar_Shape.setStyle("-fx-background-color: #C1C1C1;");
 
@@ -321,8 +321,7 @@ public class View {
         gc.setLineWidth(2);
     }
 
-    public void updateHolder(Pane holderNew)
-    {
+    public void updateHolder(Pane holderNew) {
         this.holder = holderNew;
     }
 }

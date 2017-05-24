@@ -9,10 +9,9 @@ import javafx.scene.shape.Polyline;
  * @author Kevin Gerspacher
  * @version 0.2
  */
-public class ShapeDrawState implements Toolstate
-{
+public class ShapeDrawState implements Toolstate {
     private double xStart, yStart;
-    private double xDiverence,yDiverence;
+    private double xDiverence, yDiverence;
     private double xEnd, yEnd;
 
     private Pane group;
@@ -25,8 +24,7 @@ public class ShapeDrawState implements Toolstate
     }
 
 
-    public void onLeftClick(MouseEvent event)
-    {
+    public void onLeftClick(MouseEvent event) {
         xStart = event.getX();
         yStart = event.getY();
         xEnd = xStart;
@@ -40,14 +38,12 @@ public class ShapeDrawState implements Toolstate
 
     }
 
-    public void onRightClick(MouseEvent event)
-    {
+    public void onRightClick(MouseEvent event) {
 
     }
 
-    public void onLeftDown(MouseEvent event)
-    {
-        group.getChildren().remove(group.getChildren().size()-1);
+    public void onLeftDown(MouseEvent event) {
+        group.getChildren().remove(group.getChildren().size() - 1);
         xDiverence = event.getX() - xStart;
         yDiverence = event.getY() - yStart;
         shape.setStart(xStart, yStart);
@@ -58,23 +54,19 @@ public class ShapeDrawState implements Toolstate
 
     }
 
-    public void onRightDown(MouseEvent event)
-    {
+    public void onRightDown(MouseEvent event) {
 
     }
 
-    public void onLeftUp(MouseEvent event)
-    {
+    public void onLeftUp(MouseEvent event) {
 
     }
 
-    public void onRightUp(MouseEvent event)
-    {
+    public void onRightUp(MouseEvent event) {
 
     }
 
-    public void setShape(Shape shape)
-    {
+    public void setShape(Shape shape) {
         this.shape = shape;
     }
 }

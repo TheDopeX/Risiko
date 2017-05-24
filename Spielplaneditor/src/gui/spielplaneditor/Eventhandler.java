@@ -34,8 +34,7 @@ public class Eventhandler {
                 if (event.getEventType() == MouseEvent.MOUSE_PRESSED && state != null) {
                     state.setPane(group);
                     state.onLeftClick(event);
-                }
-                else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED && state != null){
+                } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED && state != null) {
                     state.onLeftDown(event);
                 }
             }
@@ -62,8 +61,7 @@ public class Eventhandler {
         };
     }
 
-    public EventHandler<ActionEvent> changeState()
-    {
+    public EventHandler<ActionEvent> changeState() {
         return new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

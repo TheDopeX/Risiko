@@ -7,8 +7,7 @@ import javafx.scene.shape.Polyline;
  * @author Kevin Gerspacher
  * @version 0.1
  */
-public class Hexagon extends Shape
-{
+public class Hexagon extends Shape {
     private double xStart, yStart;
     private double xEnd, yEnd;
     private Color color;
@@ -51,14 +50,13 @@ public class Hexagon extends Shape
  * @param yVal
  */
     @Override
-    public void draw()
-    {
+    public void draw() {
         shape = new Polyline(xStart, yStart,
-                xStart+xEnd, yStart,
-                xStart+xEnd*1.25, yStart+yEnd/2,
-                xStart+xEnd, yStart+yEnd,
-                xStart, yStart+yEnd,
-                xStart-xEnd*0.25, yStart+yEnd/2,
+                xStart + xEnd, yStart,
+                xStart + xEnd * 1.25, yStart + yEnd / 2,
+                xStart + xEnd, yStart + yEnd,
+                xStart, yStart + yEnd,
+                xStart - xEnd * 0.25, yStart + yEnd / 2,
                 xStart, yStart);
         shape.setFill(Color.RED);
         shape.setStroke(Color.BLACK);
@@ -68,8 +66,7 @@ public class Hexagon extends Shape
     /*
      * @return Returns polyline from shape
      */
-    public Polyline getShape()
-    {
+    public Polyline getShape() {
         return shape;
     }
 }

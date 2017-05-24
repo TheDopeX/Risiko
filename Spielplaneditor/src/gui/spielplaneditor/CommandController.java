@@ -9,38 +9,31 @@ import java.util.List;
  * @author Kevin Gerspacher, David Bartberger
  * @version 0.2
  */
-public class CommandController{
+public class CommandController {
 
     private List<Pane> group = new ArrayList<>();
 
 
-    public Pane undo(Pane group)
-    {
-        if(group.getChildren().size() >= 2)
-        {
+    public Pane undo(Pane group) {
+        if (group.getChildren().size() >= 2) {
             add(group);
-            group.getChildren().remove(group.getChildren().size()-1);
+            group.getChildren().remove(group.getChildren().size() - 1);
         }
         return group;
     }
 
-    public Pane redo(Pane group)
-    {
+    public Pane redo(Pane group) {
         Pane holder;
-        if(!this.group.isEmpty())
-        {
-            holder = this.group.get(this.group.size()-1);
-            this.group.remove(this.group.size()-1);
-        }
-        else
-        {
+        if (!this.group.isEmpty()) {
+            holder = this.group.get(this.group.size() - 1);
+            this.group.remove(this.group.size() - 1);
+        } else {
             holder = group;
         }
         return holder;
     }
 
-    private void add(Pane group)
-    {
+    private void add(Pane group) {
 
         this.group.add(group);
     }

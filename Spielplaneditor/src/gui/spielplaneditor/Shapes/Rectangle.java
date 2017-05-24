@@ -7,8 +7,7 @@ import javafx.scene.shape.Polyline;
  * @author Kevin Gerspacher
  * @version 0.1
  */
-public class Rectangle extends Shape
-{
+public class Rectangle extends Shape {
     private double xStart, yStart;
     private double xEnd, yEnd;
     private Color color;
@@ -49,12 +48,11 @@ public class Rectangle extends Shape
     *
     */
     @Override
-    public void draw()
-    {
+    public void draw() {
         shape = new Polyline(xStart, yStart,
-                xStart+xEnd, yStart,
-                xStart+xEnd, yStart+yEnd,
-                xStart, yStart+yEnd,
+                xStart + xEnd, yStart,
+                xStart + xEnd, yStart + yEnd,
+                xStart, yStart + yEnd,
                 xStart, yStart);
 
         shape.setFill(Color.RED);
@@ -65,8 +63,7 @@ public class Rectangle extends Shape
     /*
      * @return Returns polyline from shape
      */
-    public Polyline getShape()
-    {
+    public Polyline getShape() {
         return shape;
     }
 }
